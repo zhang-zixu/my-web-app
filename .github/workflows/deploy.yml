@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+permissions:
+  contents: write
+  packages: write
 jobs:
   call-workflow:
     uses: zhang-zixu/my-central-cicd/.github/workflows/universal-deploy.yml@main
