@@ -17,20 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Validate required secrets
-        run: |
-          missing=()
-          [ -z "${{ secrets.DOCKER_USERNAME }}" ] && missing+=("DOCKER_USERNAME")
-          [ -z "${{ secrets.DOCKER_PASSWORD }}" ] && missing+=("DOCKER_PASSWORD")
-          [ -z "${{ secrets.SERVER_HOST }}" ] && missing+=("SERVER_HOST")
-          [ -z "${{ secrets.SERVER_USER }}" ] && missing+=("SERVER_USER")
-          [ -z "${{ secrets.SERVER_SSH_KEY }}" ] && missing+=("SERVER_SSH_KEY")
-          if [ ${#missing[@]} -gt 0 ]; then
-            echo "::error::缺少 GitHub Secrets: ${missing[*]}"
-            echo "请在仓库 Settings → Secrets and variables → Actions 中配置以上密钥"
-            exit 1
-          fi
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
