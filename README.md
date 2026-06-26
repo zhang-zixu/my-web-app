@@ -1,11 +1,27 @@
 # My Web App
 
-一个简单的静态 Web 应用，配合 GitHub Actions 实现 CI/CD 自动部署。
+基于 **Vue 3 + Vite** 的前端项目，配合 GitHub Actions 实现 CI/CD 自动部署。
 
 ## 本地开发
 
 ```bash
-# 使用 Docker 本地运行
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+# 访问 http://localhost:5173
+
+# 构建生产版本
+npm run build
+
+# 预览构建结果
+npm run preview
+```
+
+## Docker 运行
+
+```bash
 docker build -t my-web-app .
 docker run -d -p 8080:80 --name my-web-app my-web-app
 # 访问 http://localhost:8080
@@ -44,5 +60,6 @@ git push -u origin main
 
 推送代码到 `main` 分支后，GitHub Actions 会自动：
 
-1. 构建 Docker 镜像并推送到 Docker Hub
-2. SSH 连接服务器，拉取镜像并重启容器
+1. 在 Docker 中构建 Vue 项目并打包镜像
+2. 推送镜像到 Docker Hub
+3. SSH 连接服务器，拉取镜像并重启容器
