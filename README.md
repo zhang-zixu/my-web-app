@@ -52,7 +52,7 @@ git push -u origin main
 | `SERVER_USER` | SSH 用户名（如 `root`） |
 | `SERVER_SSH_KEY` | SSH 私钥内容 |
 
-### 3. 服务器准备
+### 3. 服务器准备1
 
 确保服务器已安装 Docker，且 SSH 密钥对应的公钥已添加到 `~/.ssh/authorized_keys`。
 
