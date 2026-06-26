@@ -1,6 +1,6 @@
 # My Web App
 
-基于 **Vue 3 + Vite** 的前端项目，配合 GitHub Actions 实现 CI/CD 自动部署。
+基于 **Vue 3 + Vite** 的前端项目，配合 GitHub Actions 自动构建并推送 Docker 镜像。
 
 ## 本地开发
 
@@ -48,9 +48,6 @@ git push -u origin main
 |---|---|---|
 | `DOCKER_USERNAME` | Docker Hub 用户名 | `zhangzixu` |
 | `DOCKER_PASSWORD` | Docker Hub **Access Token**（推荐，不要用登录密码） | `dckr_pat_xxx...` |
-| `SERVER_HOST` | 服务器 IP 或域名 | `123.45.67.89` |
-| `SERVER_USER` | SSH 用户名 | `root` |
-| `SERVER_SSH_KEY` | SSH **私钥**完整内容 | `-----BEGIN OPENSSH PRIVATE KEY-----...` |
 
 **Docker Hub Token 获取方式：**
 
@@ -60,14 +57,17 @@ git push -u origin main
 
 > 若日志中 `IMAGE_NAME` 显示为 `/my-web-app`（缺少用户名前缀），说明 `DOCKER_USERNAME` 未配置或为空。
 
-### 3. 服务器准备1
-
-确保服务器已安装 Docker，且 SSH 密钥对应的公钥已添加到 `~/.ssh/authorized_keys`。
-
-### 4. 自动部署
+### 3. 自动构建
 
 推送代码到 `main` 分支后，GitHub Actions 会自动：
 
 1. 在 Docker 中构建 Vue 项目并打包镜像
 2. 推送镜像到 Docker Hub
-3. SSH 连接服务器，拉取镜像并重启容器
+
+### 4. 本地运行镜像（可选）
+
+```bash
+docker pull <你的Docker用户名>/my-web-app:latest
+docker run -d -p 8080:80 --name my-web-app <你的Docker用户名>/my-web-app:latest
+# 访问 http://localhost:8080
+```
